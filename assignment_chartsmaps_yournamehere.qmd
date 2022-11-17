@@ -1,0 +1,228 @@
+---
+title: "R Charts and Maps Assignment"
+author: "YOUR NAME HERE"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+format:
+  html:
+    self-contained: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+#Load libraries 
+library(tidyverse) 
+library(janitor) 
+library(readxl) 
+library(scales)
+library(lubridate)
+library(tidyverse)
+library(tigris)
+library(sf)
+library(tmap)
+library(tmaptools)
+library(htmltools)
+library(janitor)
+library(rmapshaper)
+library(here)
+options(tigris_class = "sf")
+
+```
+
+# Introduction
+
+For this assignment you'll be making a few charts and maps using the `ggplot2` and `tmap` packages we discussed in the last class session.
+
+To help in your efforts, do feel free to make use of and adapt the materials we went over in class, which are located [here](https://github.com/amkessler/gwsmpa_r_quarto_viz_functions).
+
+The data used for this assignment includes Georgia election results by county for U.S. Senate and Governor in 2022, President in 2020, and then some of the same socioeconomic factors we've looked at other contexts so far during the semester.
+
+#### Loading the Data
+
+The first step is to load in the data, which is stored in the `ga_votes.xlsx` Excel file that's included in this repository. As you'll see if you open the spreadsheet itself, there are two tabs - one contains the senate results, and one contains the governor results.
+
+We'll load them separately into two datasets to be used for the remainder of this assignment.
+
+```{r}
+#import the GA election data for this assignment
+
+#GA senate
+senate_results <- read_excel(here("ga_votes.xlsx"), sheet = "senate")
+
+#GA governor
+governor_results <- read_excel(here("ga_votes.xlsx"), sheet = "governor")
+
+
+```
+
+Two columns in particular to highlight that we'll use to examine how the Republican Senate and Governor candidates did compared with former President Trump's performance in 2020:
+
+-   **`pct_r_above_trump`**. This column calculates the difference in percentage points between what the 2022 Republican candidate got (`pct_r_2022`) and what Trump got two years earlier (`pct_r_2020`). A negative value means the candidate did worse than Trump, a positive value means they did better.
+
+-   **`is_r_above_trump`**. This companion columns is a so-called "flag" column, which provides a Yes/No as to whether the Republican candidate did better or worse than Trump. In other words, is the `pct_r_above_trump` value positive or negative.
+
+# Charts
+
+*For this section use the `ggplot2` package to create your charts.*
+
+**1)**
+
+For the Senate race, create a column/bar chart that shows how many counties the Republican candidate did better vs. worse than Trump.
+
+```{r}
+
+
+
+
+
+```
+
+**2)**
+
+Now do the same as Question 1, just this time do it for the race for Governor.
+
+```{r}
+
+
+
+
+
+```
+
+**3)**
+
+For the Senate race, create a chart that shows the top 10 biggest drops between the Republican candidate and Trump (i.e. the 10 counties with the most substantial negative numbers in `pct_r_above_trump`). Remember that you can slice off a certain number of rows using the `head()` function, i.e. `head(5),` `head(20)`, etc.
+
+Your chart should be sorted from the biggest drop to the smallest among the top 10 counties.
+
+```{r}
+
+
+
+
+
+```
+
+**4)**
+
+For the Senate race, create a chart that shows the top 10 counties highest margins of victory for the Democratic candidate. To do that you'll need to compare the Democratic candidate's percentage (pct_d\_2022) with the Republican's (pct_r\_2022) to calculate the margin of victory for each county.
+
+```{r}
+
+
+
+
+
+```
+
+**5)**
+
+Now do the same as Question 4, only this time for the race for Governor instead.
+
+```{r}
+
+
+
+
+
+```
+
+**6)**
+
+*Extra credit:* determine the top 10 counties with the biggest differences between what the Republican candidate for Governor received and what the Senate candidate received.
+
+(Note that to accomplish this you'll have to first run a join that merges the two datasets, so that you have both the senate and governor version of the `pct_r_2022` column in the same table.)
+
+```{r}
+
+
+
+
+
+```
+
+# Maps
+
+*For this section use the `tmap` package to create your charts.*
+
+To help start things out for you, we're going to download a geospatial/map dataset with the county boundaries for Georgia. We'll use the `tigris` package to do this.
+
+```{r}
+counties_geo <- tigris::counties(state = "GA", resolution = "20m", cb = TRUE)
+```
+
+Now let's take a look at what we have, by mapping out the polygons of the Georgia counties using the tmap package.
+
+```{r}
+
+tm_shape(counties_geo) + 
+  tm_polygons()
+
+
+```
+
+Great, it looks like we should be good to go. Use the newly created map data in `counties_geo` along with our election results datasets to complete the questions below.
+
+**7)**
+
+For the Senate race, create a choropleth (shaded) map of Georgia counties that shows where the Republican candidate for Senate did better vs. worse than Trump.
+
+```{r}
+
+
+
+
+
+```
+
+**8)**
+
+Now do the same as Question 7, just this time do it for the race for Governor.
+
+```{r}
+
+
+
+
+
+```
+
+**9)**
+
+For the Senate race, create a choropleth map that shows the margins of victory for the Democratic candidate. To do that you'll need to compare the Democratic candidate's percentage (pct_d\_2022) with the Republican's (pct_r\_2022) to calculate the margin of victory for each county.
+
+```{r}
+
+
+
+
+
+```
+
+**10)**
+
+Now do the same as Question 4, only this time for the race for Governor instead.
+
+```{r}
+
+
+
+
+
+```
+
+**11)**
+
+*Extra credit:* determine the biggest differences between what the Republican candidate for Governor received and what the Senate candidate received. Then create a choropleth map of Georgia counties that shows those differences.
+
+(Note that to accomplish this you'll have to first run a join that merges the two datasets, so that you have both the senate and governor version of the `pct_r_2022` column in the same table.)
+
+```{r}
+
+
+
+
+
+```
+
+# 
