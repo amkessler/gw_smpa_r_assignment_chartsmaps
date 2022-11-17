@@ -16,4 +16,6 @@ Similarly, in the "author" section at the top of the Quarto document, place your
 
 The data we'll use for this assignment involves election results in Georgia. The `ga_votes.xlsx` file is included in this repo.
 
-When you are finished, please upload your completed Quarto (qmd) file to Blackboard. You need not upload any other files, just the finished qmd file. But just make sure it has been renamed to include your own name in the file name.
+When you are finished, please *upload your completed Quarto (qmd) file to [Blackboard](https://blackboard.gwu.edu/webapps/assignment/uploadAssignment?content_id=_12588862_1&course_id=_373171_1&group_id=&mode=cpview)*[.](https://blackboard.gwu.edu/webapps/assignment/uploadAssignment?content_id=_12588862_1&course_id=_373171_1&group_id=&mode=cpview)
+
+You need not upload any other files to [Blackboard](https://blackboard.gwu.edu/webapps/assignment/uploadAssignment?content_id=_12588862_1&course_id=_373171_1&group_id=&mode=cpview), just the finished qmd file (`assignment_chartsmaps_yourname.qmd)`. But just make sure it has been renamed to include your own name in the file name.
